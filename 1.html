@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>韩师毕业季视觉组作业</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header {
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-out;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #ff8a00, #e52e71, #00c3ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.85;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 25px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            animation: scaleIn 1s ease-out;
+            height: 0;
+            padding-bottom: 177.78%; /* 9:16 竖屏比例 */
+        }
+        
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            outline: none;
+            display: block;
+            background: #000;
+            object-fit: cover;
+        }
+        
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            z-index: 10;
+        }
+        
+        .choices {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            animation: slideUp 1s ease-out;
+        }
+        
+        .choice-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1.3rem;
+            padding: 18px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            width: 100%;
+            font-weight: bold;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .choice-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .choice-btn:active {
+            transform: translateY(0);
+        }
+        
+        .choice-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff8a00, #e52e71, #00c3ff);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .choice-btn:hover::before {
+            opacity: 0.4;
+        }
+        
+        .choice-btn.a::after {
+            content: 'A';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .choice-btn.b::after {
+            content: 'B';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .choice-btn.c::after {
+            content: 'C';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .choice-btn.d::after {
+            content: 'D';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .choice-btn.e::after {
+            content: 'E';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .choice-btn.f::after {
+            content: 'F';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .video-info {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 30px;
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .progress {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .step {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .step.active {
+            background: white;
+            transform: scale(1.4);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        .step-label {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        
+        .path-indicator {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(70px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 700px) {
+            h1 { font-size: 2.3rem; }
+            .subtitle { font-size: 1.1rem; }
+            .choice-btn { font-size: 1.2rem; padding: 16px; }
+            .video-info { font-size: 1.1rem; }
+            .path-indicator { font-size: 1rem; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 1rem; }
+            .container { padding: 15px; }
+            .video-container { max-width: 340px; }
+        }
+        
+        .decoration {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: -1;
+        }
+        
+        .dec1 {
+            top: -100px;
+            left: -100px;
+            width: 250px;
+            height: 250px;
+        }
+        
+        .dec2 {
+            bottom: -150px;
+            right: -100px;
+            width: 350px;
+            height: 350px;
+        }
+        
+        .reset-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reset-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .video-counter {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        .file-structure {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: left;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .file-structure h3 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .file-structure ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        .file-structure li {
+            margin-bottom: 5px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .file-structure li:before {
+            content: '📄';
+            position: absolute;
+            left: 0;
+        }
+        
+        .file-structure li.folder:before {
+            content: '📁';
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration dec1"></div>
+    <div class="decoration dec2"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>韩师毕业季视觉组作业</h1>
+            <p class="subtitle">您的选择将决定视频内容的走向。观看视频后选择A或B选项继续</p>
+        </div>
+        
+        <div class="video-container">
+            <video id="mainVideo" controls>
+                <!-- 视频源将在JS中动态设置 -->
+                您的浏览器不支持视频播放。
+            </video>
+            <div class="video-placeholder" id="videoPlaceholder">
+                <i class="fas fa-video-slash fa-3x" style="margin-bottom: 15px;"></i>
+                <h3>视频加载中...</h3>
+                <p>请确保视频文件位于正确的文件夹中</p>
+            </div>
+        </div>
+        
+        <div class="video-info">
+            <i class="fas fa-play-circle"></i> 正在播放：<span id="videoTitle">视频1 - 初始场景</span>
+        </div>
+        
+        <div class="choices" id="choicesContainer">
+            <button class="choice-btn a" id="choiceA" data-choice="A">选项 A 准备好心情参加工作</button>
+            <button class="choice-btn b" id="choiceB" data-choice="B">选项 B 充实自己继续学习深造</button>
+        </div>
+        
+        <div class="path-indicator">
+            <i class="fas fa-map-signs"></i> 当前路径：<span id="pathText">初始视频</span>
+        </div>
+        
+        <div class="progress">
+            <div class="step active" id="step1">
+                <span class="step-label">视频1</span>
+            </div>
+            <div class="step" id="step2">
+                <span class="step-label">视频2/3</span>
+            </div>
+            <div class="step" id="step3">
+                <span class="step-label">最终视频</span>
+            </div>
+        </div>
+        
+        <div class="video-controls">
+            <div class="control-btn" id="playBtn">
+                <i class="fas fa-play"></i>
+            </div>
+            <div class="control-btn" id="pauseBtn">
+                <i class="fas fa-pause"></i>
+            </div>
+            <div class="control-btn" id="volumeUp">
+                <i class="fas fa-volume-up"></i>
+            </div>
+            <div class="control-btn" id="volumeDown">
+                <i class="fas fa-volume-down"></i>
+            </div>
+        </div>
+        
+        <div class="video-counter">
+            当前视频: <span id="currentVideo">1</span>/7
+        </div>
+        
+        <div class="file-structure">
+            <h3><i class="fas fa-folder-open"></i> 文件结构说明</h3>
+            <ul>
+                <li class="folder">项目文件夹</li>
+                <li>index.html (本文件)</li>
+                <li class="folder">videos (视频文件夹)</li>
+                <li>&nbsp;&nbsp;1.mp4 (初始视频)</li>
+                <li>&nbsp;&nbsp;2.mp4 (选项A结果)</li>
+                <li>&nbsp;&nbsp;3.mp4 (选项B结果)</li>
+                <li>&nbsp;&nbsp;4.mp4 (路径A-C结果)</li>
+                <li>&nbsp;&nbsp;5.mp4 (路径A-D结果)</li>
+                <li>&nbsp;&nbsp;6.mp4 (路径B-E结果)</li>
+                <li>&nbsp;&nbsp;7.mp4 (路径B-F结果)</li>
+            </ul>
+        </div>
+        
+        <button class="reset-btn" id="resetBtn">
+            <i class="fas fa-redo"></i> 重新开始
+        </button>
+    </div>
+
+    <script>
+        // 视频信息（使用相对路径）
+        const videos = [
+            { 
+                title: "视频1 - 初始场景", 
+                src: "videos/1.mp4",
+                next: {
+                    A: 1,
+                    B: 2
+                },
+                path: "初始视频"
+            },
+            { 
+                title: "视频2 - 选择A的结果", 
+                src: "videos/2.mp4",
+                next: {
+                    C: 3,
+                    D: 4
+                },
+                path: "初始 → 选项A"
+            },
+            { 
+                title: "视频3 - 选择B的结果", 
+                src: "videos/3.mp4",
+                next: {
+                    E: 5,
+                    F: 6
+                },
+                path: "初始 → 选项B"
+            },
+            { 
+                title: "视频4 - 路径A-C", 
+                src: "videos/4.mp4",
+                path: "初始 → 选项A → 选项C"
+            },
+            { 
+                title: "视频5 - 路径A-D", 
+                src: "videos/5.mp4",
+                path: "初始 → 选项A → 选项D"
+            },
+            { 
+                title: "视频6 - 路径B-E", 
+                src: "videos/6.mp4",
+                path: "初始 → 选项B → 选项E"
+            },
+            { 
+                title: "视频7 - 路径B-F", 
+                src: "videos/7.mp4",
+                path: "初始 → 选项B → 选项F"
+            }
+        ];
+
+        // DOM元素
+        const videoElement = document.getElementById('mainVideo');
+        const videoPlaceholder = document.getElementById('videoPlaceholder');
+        const videoTitle = document.getElementById('videoTitle');
+        const choiceA = document.getElementById('choiceA');
+        const choiceB = document.getElementById('choiceB');
+        const choicesContainer = document.getElementById('choicesContainer');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+        const pathText = document.getElementById('pathText');
+        const resetBtn = document.getElementById('resetBtn');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const volumeUp = document.getElementById('volumeUp');
+        const volumeDown = document.getElementById('volumeDown');
+        const currentVideoSpan = document.getElementById('currentVideo');
+        
+        // 当前视频索引
+        let currentVideoIndex = 0;
+        
+        // 初始化
+        function init() {
+            // 设置初始视频
+            playVideo(currentVideoIndex);
+            
+            // 添加事件监听器
+            choiceA.addEventListener('click', handleChoice);
+            choiceB.addEventListener('click', handleChoice);
+            resetBtn.addEventListener('click', resetExperience);
+            
+            // 视频控制
+            playBtn.addEventListener('click', () => videoElement.play());
+            pauseBtn.addEventListener('click', () => videoElement.pause());
+            volumeUp.addEventListener('click', () => {
+                if (videoElement.volume < 0.9) videoElement.volume += 0.1;
+            });
+            volumeDown.addEventListener('click', () => {
+                if (videoElement.volume > 0.1) videoElement.volume -= 0.1;
+            });
+            
+            // 视频结束时检查是否有后续选项
+            videoElement.addEventListener('ended', handleVideoEnd);
+            
+            // 初始隐藏选择按钮
+            choicesContainer.style.display = "none";
+        }
+        
+        // 处理用户选择
+        function handleChoice(event) {
+            const choice = event.currentTarget.getAttribute('data-choice');
+            makeChoice(choice);
+        }
+        
+        // 播放指定索引的视频
+        function playVideo(index) {
+            const video = videos[index];
+            videoTitle.textContent = video.title;
+            pathText.textContent = video.path;
+            currentVideoSpan.textContent = index + 1;
+            
+            // 更新进度指示器
+            updateProgressIndicator(index);
+            
+            // 设置视频源
+            videoElement.src = video.src;
+            
+            // 显示视频加载状态
+            videoElement.onloadeddata = () => {
+                videoPlaceholder.style.display = "none";
+                videoElement.style.display = "block";
+                
+                // 尝试自动播放
+                const playPromise = videoElement.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("自动播放被阻止，显示播放控件");
+                        videoElement.controls = true;
+                    });
+                }
+            };
+            
+            // 处理视频加载错误
+            videoElement.onerror = () => {
+                videoPlaceholder.innerHTML = `
+                    <i class="fas fa-exclamation-triangle fa-3x" style="margin-bottom: 15px; color: #ff6b6b;"></i>
+                    <h3>视频加载失败</h3>
+                    <p>无法加载视频文件: ${video.src}</p>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">
+                        请确保视频文件位于 <code>videos</code> 文件夹中
+                    </p>
+                `;
+                videoPlaceholder.style.display = "flex";
+            };
+        }
+        
+        // 处理视频结束
+        function handleVideoEnd() {
+            const currentVideo = videos[currentVideoIndex];
+            
+            // 如果有后续选项，显示选择按钮
+            if (currentVideo.next) {
+                // 更新按钮样式和文本
+                updateChoiceButtons();
+                
+                choicesContainer.style.display = "flex";
+                choicesContainer.style.animation = "slideUp 0.8s ease-out";
+            } else {
+                // 没有后续选项，显示重播按钮
+                choicesContainer.style.display = "none";
+            }
+        }
+        
+        // 更新选择按钮
+        function updateChoiceButtons() {
+            const currentVideo = videos[currentVideoIndex];
+            
+            // 移除所有按钮的类
+            choiceA.className = "choice-btn";
+            choiceB.className = "choice-btn";
+            
+            if (currentVideoIndex === 0) {
+                // 第一层选择：A和B
+                choiceA.textContent = "选项 A 准备好心情参加工作";
+                choiceB.textContent = "选项 B 充实自己继续学习深造";
+                choiceA.classList.add("a");
+                choiceB.classList.add("b");
+                choiceA.setAttribute('data-choice', 'A');
+                choiceB.setAttribute('data-choice', 'B');
+            } else if (currentVideoIndex === 1) {
+                // 视频2后的选择：C和D
+                choiceA.textContent = "选项 C 从事理论工作运筹帷幄";
+                choiceB.textContent = "选项 D 从事实干工作兢兢业业";
+                choiceA.classList.add("c");
+                choiceB.classList.add("d");
+                choiceA.setAttribute('data-choice', 'C');
+                choiceB.setAttribute('data-choice', 'D');
+            } else if (currentVideoIndex === 2) {
+                // 视频3后的选择：E和F
+                choiceA.textContent = "选项 E 努力向上考取研究生学历";
+                choiceB.textContent = "选项 F 冲刺公务员回报人民社会";
+                choiceA.classList.add("e");
+                choiceB.classList.add("f");
+                choiceA.setAttribute('data-choice', 'E');
+                choiceB.setAttribute('data-choice', 'F');
+            }
+        }
+        
+        // 处理用户选择
+        function makeChoice(choice) {
+            const currentVideo = videos[currentVideoIndex];
+            
+            if (currentVideo.next && currentVideo.next[choice] !== undefined) {
+                // 隐藏选择按钮直到新视频结束
+                choicesContainer.style.display = "none";
+                
+                // 更新当前视频索引
+                currentVideoIndex = currentVideo.next[choice];
+                
+                // 播放新视频
+                playVideo(currentVideoIndex);
+            }
+        }
+        
+        // 更新进度指示器
+        function updateProgressIndicator(index) {
+            // 重置所有步骤
+            step1.classList.remove('active');
+            step2.classList.remove('active');
+            step3.classList.remove('active');
+            
+            // 根据当前视频设置活动步骤
+            if (index === 0) {
+                step1.classList.add('active');
+            } else if (index === 1 || index === 2) {
+                step2.classList.add('active');
+            } else {
+                step3.classList.add('active');
+            }
+        }
+        
+        // 重置体验
+        function resetExperience() {
+            currentVideoIndex = 0;
+            playVideo(currentVideoIndex);
+            choicesContainer.style.display = "none";
+            
+            // 重置按钮为初始状态
+            choiceA.className = "choice-btn a";
+            choiceB.className = "choice-btn b";
+            choiceA.textContent = "选项 A 准备好心情参加工作";
+            choiceB.textContent = "选项 B 充实自己继续学习深造";
+            choiceA.setAttribute('data-choice', 'A');
+            choiceB.setAttribute('data-choice', 'B');
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
