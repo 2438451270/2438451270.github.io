@@ -517,18 +517,18 @@
         <div class="path-indicator">
             <i class="fas fa-map-signs"></i> 当前路径：<span id="pathText">初始视频</span>
         </div>
-        
-        <div class="progress">
+     <div class="progress">
             <div class="step active" id="step1">
-                <span class="step-label">视频1</span>
+                <span class="step-label"></span>
             </div>
             <div class="step" id="step2">
-                <span class="step-label">视频2/3</span>
+                <span class="step-label"></span>
             </div>
             <div class="step" id="step3">
-                <span class="step-label">最终视频</span>
+                <span class="step-label"></span>
             </div>
         </div>
+        
         
         <div class="video-controls">
             <div class="control-btn" id="playBtn">
@@ -548,22 +548,7 @@
         <div class="video-counter">
             当前视频: <span id="currentVideo">1</span>/7
         </div>
-        
-        <div class="file-structure">
-            <h3><i class="fas fa-folder-open"></i> 文件结构说明</h3>
-            <ul>
-                <li class="folder">项目文件夹</li>
-                <li>index.html (本文件)</li>
-                <li class="folder">videos (视频文件夹)</li>
-                <li>&nbsp;&nbsp;1.mp4 (初始视频)</li>
-                <li>&nbsp;&nbsp;2.mp4 (选项A结果)</li>
-                <li>&nbsp;&nbsp;3.mp4 (选项B结果)</li>
-                <li>&nbsp;&nbsp;4.mp4 (路径A-C结果)</li>
-                <li>&nbsp;&nbsp;5.mp4 (路径A-D结果)</li>
-                <li>&nbsp;&nbsp;6.mp4 (路径B-E结果)</li>
-                <li>&nbsp;&nbsp;7.mp4 (路径B-F结果)</li>
-            </ul>
-        </div>
+      
         
         <button class="reset-btn" id="resetBtn">
             <i class="fas fa-redo"></i> 重新开始
@@ -571,11 +556,11 @@
     </div>
 
     <script>
-        // 视频信息（使用相对路径）
+        // 视频信息（使用URL路径）
         const videos = [
             { 
                 title: "视频1 - 初始场景", 
-                src: "videos/1.mp4",
+                src: "https://2438451270.github.io/videos/1.mp4",
                 next: {
                     A: 1,
                     B: 2
@@ -584,7 +569,7 @@
             },
             { 
                 title: "视频2 - 选择A的结果", 
-                src: "videos/2.mp4",
+                src: "https://2438451270.github.io/videos/2.mp4",
                 next: {
                     C: 3,
                     D: 4
@@ -593,7 +578,7 @@
             },
             { 
                 title: "视频3 - 选择B的结果", 
-                src: "videos/3.mp4",
+                src: "https://2438451270.github.io/videos/3.mp4",
                 next: {
                     E: 5,
                     F: 6
@@ -602,22 +587,22 @@
             },
             { 
                 title: "视频4 - 路径A-C", 
-                src: "videos/4.mp4",
+                src: "https://2438451270.github.io/videos/4.mp4",
                 path: "初始 → 选项A → 选项C"
             },
             { 
                 title: "视频5 - 路径A-D", 
-                src: "videos/5.mp4",
+                src: "https://2438451270.github.io/videos/5.mp4",
                 path: "初始 → 选项A → 选项D"
             },
             { 
                 title: "视频6 - 路径B-E", 
-                src: "videos/6.mp4",
+                src: "https://2438451270.github.io/videos/6.mp4",
                 path: "初始 → 选项B → 选项E"
             },
             { 
                 title: "视频7 - 路径B-F", 
-                src: "videos/7.mp4",
+                src: "https://2438451270.github.io/videos/7.mp4",
                 path: "初始 → 选项B → 选项F"
             }
         ];
@@ -712,7 +697,7 @@
                     <h3>视频加载失败</h3>
                     <p>无法加载视频文件: ${video.src}</p>
                     <p style="font-size: 0.9rem; margin-top: 10px;">
-                        请确保视频文件位于 <code>videos</code> 文件夹中
+                        请检查网络连接或视频URL
                     </p>
                 `;
                 videoPlaceholder.style.display = "flex";
